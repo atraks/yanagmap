@@ -24,6 +24,6 @@ $nagmap_map_type = 'SATELLITE'; //you can use any of these: ROADMAP or SATELLITE
 // use this only to generate extra information for support - this will add a lot of information into the rendered index file
 $nagmap_debug = 0;
 
-$nagmap_bubble_extra = '<a href="https://github.com/hecko/nagmap">NagMap on GitHub</a>';
+$nagmap_bubble_extra = '<a href="https://github.com/atraks/yanagmap">NagMap on GitHub</a>';
 $nagmap_sidebar_top_extra = '<img src="logo.png"><br>';
 ?>
