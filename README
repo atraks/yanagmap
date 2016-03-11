@@ -1,0 +1,21 @@
+Intro
+=====
+YaNagMap is a complete clone of Nagmap (https://github.com/hecko/nagmap) with rewritten api to use Yandex Maps. 
+
+YaNagMap project is an initiative to create super-simple application to 
+integrate Nagios with Yandex maps. The integration aims to visualize 
+current status of network devices on aerial photography images. It 
+also aims to give administrator basic information on devices to do 
+further investigation of their status, such as links to MRTG and 
+Smokeping pages of respected devices.
+
+If you experience any problems deploying YaNagMap please 
+send an email to atraks@gmail.com - I will do my best
+to assist you or to add new features into NagMap. 
+
+YaNagMap uses Yandex Map API v2.1
+
+Terms of use (this is required as the app uses Yandex Maps API):
+================================================================
+* By using this Maps API Implementation, your are agreeing to be bound by Yandex Terms of Use
+* Yandex Maps usage quotas: https://yandex.ru/legal/maps_termsofuse/
