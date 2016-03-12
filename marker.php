@@ -107,7 +107,8 @@ foreach ($data as $h) {
     // display different icons for the host (according to the status in nagios)
     // if host is in state OK
     if ($h['status'] == 0) {
-        $javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#00b34d\', zIndex: \'3000\' }))'."\n";
+	    //$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#00b34d\', zIndex: \'3000\', iconImageSize: [5,5] }))'."\n";
+		$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {iconLayout: \'default#image\', iconImageHref: \'images/ok.png\', iconImageSize: [27, 27], iconImageOffset: [-7, -25], zIndex: \'3000\',}))'."\n";
         $stats['ok']++;
         //$sidebar['ok'][] = '<a href="javascript:'.$h["host_name"].'_mark_infowindow.open(map,'.$h["host_name"].'_mark)" class="'.$h['status_style'].'">'.$h["nagios_host_name"]." ".$h["alias"]."</a><br>\n";
     // if host is in state WARNING
