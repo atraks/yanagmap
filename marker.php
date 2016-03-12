@@ -107,46 +107,21 @@ foreach ($data as $h) {
     // display different icons for the host (according to the status in nagios)
     // if host is in state OK
     if ($h['status'] == 0) {
-      $javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {'."\n";
-        $javascript.="balloonContent: '".$h["host_name"]."'"."\n";
-		$javascript.='}, {'."\n";
-		$javascript.="preset: 'islands#icon',"."\n";
-		$javascript.="iconColor: '#00b34d'"."\n";
-		$javascript.="})) "."\n";
+        $javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#00b34d\', zIndex: \'3000\' }))'."\n";
         $stats['ok']++;
         //$sidebar['ok'][] = '<a href="javascript:'.$h["host_name"].'_mark_infowindow.open(map,'.$h["host_name"].'_mark)" class="'.$h['status_style'].'">'.$h["nagios_host_name"]." ".$h["alias"]."</a><br>\n";
     // if host is in state WARNING
     } elseif ($h['status'] == 1) {
-	$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {'."\n";
-        $javascript.="balloonContent: '".$h["host_name"]."'"."\n";
-		$javascript.='}, {'."\n";
-		$javascript.="preset: 'islands#icon',"."\n";
-		$javascript.="iconColor: '#ffff1a'"."\n";
-		$javascript.="})) "."\n";
+	    $javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#ffff1a\', zIndex: \'4000\' }))'."\n";
 		$stats['warning']++;
 		} elseif ($h['status'] == 2) {
-		$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {'."\n";
-        $javascript.="balloonContent: '".$h["host_name"]."'"."\n";
-		$javascript.='}, {'."\n";
-		$javascript.="preset: 'islands#icon',"."\n";
-		$javascript.="iconColor: '#ff3300'"."\n";
-		$javascript.="})) "."\n";
+		$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#ff3300\', zIndex: \'8000\' }))'."\n";
 		$stats['critical']++;
 		} elseif ($h['status'] == 3) {
-		$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {'."\n";
-        $javascript.="balloonContent: '".$h["host_name"]."'"."\n";
-		$javascript.='}, {'."\n";
-		$javascript.="preset: 'islands#icon',"."\n";
-		$javascript.="iconColor: '#FF7F24'"."\n";
-		$javascript.="})) "."\n";
+		$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#FF7F24\', zIndex: \'3000\'}))'."\n";
 		$stats['unknown']++;
 		} else {
-		$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {'."\n";
-        $javascript.="balloonContent: '".$h["host_name"]."'"."\n";
-		$javascript.='}, {'."\n";
-		$javascript.="preset: 'islands#icon',"."\n";
-		$javascript.="iconColor: '#FF7F24'"."\n";
-		$javascript.="})) "."\n";
+		$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#FF7F24\', zIndex: \'9000\'}))'."\n";
 		$stats['unknown']++;
 		}
 		
