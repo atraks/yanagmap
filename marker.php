@@ -106,21 +106,30 @@ foreach ($data as $h) {
 
     // display different icons for the host (according to the status in nagios)
     // if host is in state OK
+	$latlng=$h["latlng"];
+        $nhn=$h["nagios_host_name"];
+        $ss=$h["status_style"];
+        $alias=$h["alias"];
+
     if ($h['status'] == 0) {
-	    //$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#00b34d\', zIndex: \'3000\', iconImageSize: [5,5] }))'."\n";
-		$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {iconLayout: \'default#image\', iconImageHref: \'images/ok.png\', iconImageSize: [27, 27], iconImageOffset: [-7, -25], zIndex: \'3000\',}))'."\n";
+	$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {iconLayout: \'default#image\', iconImageHref: \'images/ok.png\', iconImageSize: [27, 27], iconImageOffset: [-7, -25], zIndex: \'3000\',}))'."\n";
         $stats['ok']++;
-        //$sidebar['ok'][] = '<a href="javascript:'.$h["host_name"].'_mark_infowindow.open(map,'.$h["host_name"].'_mark)" class="'.$h['status_style'].'">'.$h["nagios_host_name"]." ".$h["alias"]."</a><br>\n";
+	$sidebar['ok'][]='<a href="#" onClick="go_host(['.$latlng.'],\''.$nhn.'\')" class=\''.$ss.'\'>'.$nhn.'</a><br>\n';
+	//$sidebar['ok'][]='<a href="#" onClick="go_host(['.$h[\"latlng\"].'],\"'.$h[\"nagios_host_name\"]\".')" class="'.$h[\"status_style\"].'">'.$h["nagios_host_name"].' '.$h["alias"].'</a><br>\n';
+	//$sidebar['ok'][]='<a href="#" onClick="go_host('.$h[\"latlng\"]'.,.$h[\"nagios_host_name\"].')" class="'.$h['status_style'].'">'.$h["nagios_host_name"]." ".$h["alias"]."</a><br>\n";
     // if host is in state WARNING
     } elseif ($h['status'] == 1) {
 	    $javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#ffff1a\', zIndex: \'4000\' }))'."\n";
 		$stats['warning']++;
+		$sidebar['warning'][]='<a href="#" onClick="go_host(['.$latlng.'],\''.$nhn.'\')" class=\''.$ss.'\'>'.$nhn.'</a><br>\n';
 		} elseif ($h['status'] == 2) {
 		$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#ff3300\', zIndex: \'8000\' }))'."\n";
 		$stats['critical']++;
+		$sidebar['critical'][]='<a href="#" onClick="go_host(['.$latlng.'],\''.$nhn.'\')" class=\''.$ss.'\'>'.$nhn.'</a><br>\n';
 		} elseif ($h['status'] == 3) {
 		$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#FF7F24\', zIndex: \'3000\'}))'."\n";
 		$stats['unknown']++;
+		$sidebar['unknown'][]='<a href="#" onClick="go_host(['.$latlng.'],\''.$nhn.'\')" class=\''.$ss.'\'>'.$nhn.'</a><br>\n';
 		} else {
 		$javascript .= '.add(new ymaps.Placemark(['.$h["latlng"].'], {balloonContent: \''.$h["host_name"].'\'}, {preset: \'islands#icon\', iconColor: \'#FF7F24\', zIndex: \'9000\'}))'."\n";
 		$stats['unknown']++;
@@ -128,7 +137,7 @@ foreach ($data as $h) {
 		
     //generate google maps info bubble
 };
-
+$javascript.='';
 // create (multiple) parent connection links between nodes/markers
 $javascript.='';
 foreach ($data as $h) {

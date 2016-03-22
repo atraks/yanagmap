@@ -23,19 +23,32 @@ if ($javascript == "") {
     <title>NagMap <?php echo $nagmap_version ?></title>
 	<script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script type="text/javascript">
+    function go_host(latlon,balcon)
+    {
+	myMap.setCenter(latlon, 18);
+	var placemark = new ymaps.Placemark(latlon,{
+	    balloonContent: balcon}, {preset: 'islands#icon', zIndex: '2000' }
+		
+    )
+    myMap.geoObjects.add(placemark);
+    placemark.balloon.open();
+    return false;
+    }
 
     //static code from index.pnp
+	var myMap;
 	ymaps.ready(init);
 	function init () {
-    var myMap = new ymaps.Map("map", {
-            center: [<?php echo $nagmap_map_centre; ?>],
+        myMap = new ymaps.Map("map", {
+            center: [45.04, 41.99],
             zoom: 14
-        }, {
+        }, 
+	{
             searchControlProvider: 'yandex#search'
         }),
-		myGeoObject = new ymaps.GeoObject({});
-		myMap.geoObjects
-        .add(myGeoObject)
+	myGeoObject = new ymaps.GeoObject({});
+	myMap.geoObjects
+        //.add(myGeoObject)
 
 // generating dynamic code from here
 // if the page ends here, there is something seriously wrong, please contact maco@blava.net for help
@@ -53,7 +66,7 @@ if ($javascript == "") {
     sort($sidebar['warning']);
     sort($sidebar['critical']);
     sort($sidebar['unknown']);
-    echo '<div id="map_canvas" style="width:85%; height:100%; float: left"></div>';
+    echo '<div id="map" style="width:85%; height:100%; float: left"></div>';
     echo '<div id="sidebar" class="sidebar" style="padding-left: 10px; background: black; height:100%; overflow:auto;">';
     if ($nagmap_sidebar_top_extra) {
         echo $nagmap_sidebar_top_extra;
