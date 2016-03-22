@@ -3,13 +3,13 @@ error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECO
 $page = $_SERVER['PHP_SELF'];
 $sec = "300";
 header("Refresh: $sec; url=$page");
-$nagmap_version = '1.3';
+$nagmap_version = '1.4';
 include('config.php');
 include('marker.php');
 
 if ($javascript == "") {
   echo "There is no data to display. You either did not set NagMap properly or there is a software bug.<br>".
-       "Please contact maco@blava.net for free assistance.";
+       "Please contact atraks@gmail.com for free assistance.";
   die("Cannot continue");
 }
 
