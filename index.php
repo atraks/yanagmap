@@ -1,15 +1,15 @@
 <?php
-error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
+#error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 $page = $_SERVER['PHP_SELF'];
 $sec = "300";
 header("Refresh: $sec; url=$page");
-$nagmap_version = '1.4';
+$nagmap_version = '1.3';
 include('config.php');
 include('marker.php');
 
 if ($javascript == "") {
   echo "There is no data to display. You either did not set NagMap properly or there is a software bug.<br>".
-       "Please contact atraks@gmail.com for free assistance.";
+       "Please contact maco@blava.net for free assistance.";
   die("Cannot continue");
 }
 
@@ -21,7 +21,8 @@ if ($javascript == "") {
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <link rel=StyleSheet href="style.css" type="text/css" media=screen>
     <title>NagMap <?php echo $nagmap_version ?></title>
-	<script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+	<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=debug" type="text/javascript"></script>
+  <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
     function go_host(latlon,balcon)
     {
@@ -36,27 +37,36 @@ if ($javascript == "") {
     }
 
     //static code from index.pnp
-	var myMap;
-	ymaps.ready(init);
-	function init () {
-        myMap = new ymaps.Map("map", {
+//	var myMap;
+  ymaps.ready(init);
+  function init() {
+    var myMap = new ymaps.Map("map", {
             center: [45.04, 41.99],
             zoom: 14
-        }, 
-	{
+        }, {
             searchControlProvider: 'yandex#search'
         }),
-	myGeoObject = new ymaps.GeoObject({});
-	myMap.geoObjects
-        //.add(myGeoObject)
+    objectManager = new ymaps.ObjectManager({
+            clusterize: false,
+            // ObjectManager принимает те же опции, что и кластеризатор.
+            gridSize: 16,
+            clusterDisableClickZoom: true
+    });
+    myMap.geoObjects.add(objectManager);
+    $.ajax({
+        url: "http://nagios.iformula.ru/nagios3/yanagmap/data.json"
+    }).done(function(data) {
+        objectManager.add(data);
+    });
+    }    //.add(myGeoObject)
 
 // generating dynamic code from here
 // if the page ends here, there is something seriously wrong, please contact maco@blava.net for help
 
 <?php
   // print the body of the page here
-  echo $javascript;
-  echo ';}'; //end of initialize function
+  //echo $javascript;
+  //echo ';}'; //end of initialize function
   echo '
     </script>
     </head>
